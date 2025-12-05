@@ -6,7 +6,6 @@ import com.openclassrooms.mddapi.dto.TokenResponseDTO;
 import com.openclassrooms.mddapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,27 +16,27 @@ public class AuthController {
 
     @GetMapping("/")
     public String index() {
-        return "Bienvenue sur l’API Rentals 👋";
+        return "Bienvenue sur l’API MDD 👋";
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO dto){
-        try{
+    public ResponseEntity<?> register(@RequestBody RegisterRequestDTO dto) {
+        try {
             userService.registerUser(dto);
             TokenResponseDTO token = userService.authenticateUser(dto.getEmail(), dto.getPassword());
 
             return ResponseEntity.ok(token);
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO dto){
-        try{
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO dto) {
+        try {
             TokenResponseDTO token = userService.authenticateUser(dto.getEmail(), dto.getPassword());
             return ResponseEntity.ok(token);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
