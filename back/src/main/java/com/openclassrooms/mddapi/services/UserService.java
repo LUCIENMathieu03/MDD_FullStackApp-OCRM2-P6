@@ -33,11 +33,6 @@ public class UserService {
     @Autowired
     private JWTService jwtService;
 
-    public User getUserById(final Integer Id){
-        return userRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
-    }
-
 
     public void registerUser(RegisterRequestDTO registerRequestDTO) throws RuntimeException {
         if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {

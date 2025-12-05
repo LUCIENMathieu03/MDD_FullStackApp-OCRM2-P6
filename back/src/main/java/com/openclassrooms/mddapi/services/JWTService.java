@@ -25,7 +25,7 @@ public class JWTService {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
-                .expiresAt(now.plus(3, ChronoUnit.MINUTES))
+                .expiresAt(now.plus(10, ChronoUnit.MINUTES))
                 .subject(authentication.getName())
                 .build();
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims);//prepare header + payload dans un objet prêt à être signé par JwtEncoder
