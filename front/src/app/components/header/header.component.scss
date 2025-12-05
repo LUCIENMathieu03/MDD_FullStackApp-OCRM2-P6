@@ -1,0 +1,16 @@
+.header {
+  display: none;
+  border-bottom: 1px solid black;
+
+  .logo {
+    height: 81px;
+    margin: 7px 0px;
+    margin-left: 22px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .header {
+    display: block;
+  }
+}
