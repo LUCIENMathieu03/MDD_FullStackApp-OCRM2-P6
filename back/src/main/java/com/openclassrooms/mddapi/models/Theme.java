@@ -11,21 +11,15 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "articles")
-public class Article {
+@Table(name = "theme")
+public class Theme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
 
-    String title;
+    String name;
 
-    String author;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "themeId")
-    private Theme theme;
-
-    String content;
+    String description;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -34,7 +28,6 @@ public class Article {
     @UpdateTimestamp
     Timestamp updatedAt;
 
-    // RELATION : Un article → plusieurs commentaires
-    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY)
+    private List<Article> articles = new ArrayList<>();
 }

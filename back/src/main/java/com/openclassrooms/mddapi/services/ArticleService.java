@@ -3,9 +3,11 @@ package com.openclassrooms.mddapi.services;
 import com.openclassrooms.mddapi.dto.*;
 import com.openclassrooms.mddapi.models.Article;
 import com.openclassrooms.mddapi.models.Comment;
+import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.models.User;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.CommentRepository;
+import com.openclassrooms.mddapi.repository.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class ArticleService {
     @Autowired
     UserService userService;
 
+    @Autowired
+    ThemeRepository themeRepository;
+
     public List<ArticleDTO> getAllArticle() {
         List<ArticleDTO> ArticleDtoList = new ArrayList<>();
         for (Article article : articleRepository.findAll()) {
@@ -33,6 +38,7 @@ public class ArticleService {
         return ArticleDtoList;
     }
 
+    //now this is useless because of function below
     public ArticleDTO getArticleById(Integer id) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Article introuvable"));
@@ -40,18 +46,22 @@ public class ArticleService {
     }
 
     public ArticleWithCommentsDTO getArticleWithComments(Integer id){
-        Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Article introuvable"));
+        Article article = articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article introuvable"));
         return toArticleWithCommentsDTO(article);
     }
 
     public ArticleDTO createArticle(ArticleCreateRequestDTO dto) {
+        if (articleRepository.existsByTitle(dto.getTitle())) {
+            throw new RuntimeException("Article Title already used");
+        }
+
         Article articleToCreate = new Article();
         User currentUser = userService.getCurrentUserFromSecurityContext();
+        Theme dtoTheme = themeRepository.findByName(dto.getTheme());
 
         articleToCreate.setTitle(dto.getTitle());
         articleToCreate.setAuthor(currentUser.getName());
-        articleToCreate.setTheme(dto.getTheme());
+        articleToCreate.setTheme(dtoTheme);
         articleToCreate.setContent(dto.getContent());
 
         Article savedArticle = articleRepository.save(articleToCreate);
@@ -80,7 +90,7 @@ public class ArticleService {
         articleDTO.setId(article.getId());
         articleDTO.setTitle(article.getTitle());
         articleDTO.setAuthor(article.getAuthor());
-        articleDTO.setTheme(article.getTheme());
+        articleDTO.setTheme(article.getTheme().getName());
         articleDTO.setContent(article.getContent());
 
         articleDTO.setCreatedAt(article.getCreatedAt());
@@ -95,7 +105,7 @@ public class ArticleService {
         dto.setId(article.getId());
         dto.setTitle(article.getTitle());
         dto.setAuthor(article.getAuthor());
-        dto.setTheme(article.getTheme());
+        dto.setTheme(article.getTheme().getName());
         dto.setContent(article.getContent());
         dto.setCreatedAt(article.getCreatedAt());
         dto.setUpdatedAt(article.getUpdatedAt());

@@ -1,23 +1,20 @@
 package com.openclassrooms.mddapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 
 import java.sql.Timestamp;
 import java.util.List;
 
-@Data
-public class ArticleWithCommentsDTO {
-    private Integer id;
-    private String title;
-    private String author;
-    private String theme;
-    private String content;
+public class ThemeWithArticleDTO {
+
+    private int id;
+    private String name;
+    private String description;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm",timezone = "Europe/Paris" )
     private Timestamp createdAt;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm", timezone = "Europe/Paris" )
     private Timestamp updatedAt;
 
+    private List<CommentDTO> article;
 
-    private List<CommentDTO> comments;
 }
