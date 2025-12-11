@@ -14,7 +14,6 @@ public class UserDTO {
     private int id;
     private String name;
     private String email;
-    private Integer[] themeSubscription;
 
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm",timezone = "Europe/Paris" )
     private Timestamp createdAt;

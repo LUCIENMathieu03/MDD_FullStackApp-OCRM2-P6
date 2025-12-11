@@ -1,10 +1,11 @@
 package com.openclassrooms.mddapi.services;
 
-import com.openclassrooms.mddapi.dto.RegisterRequestDTO;
-import com.openclassrooms.mddapi.dto.TokenResponseDTO;
-import com.openclassrooms.mddapi.dto.UserDTO;
-import com.openclassrooms.mddapi.dto.UserUpdateRequestDTO;
+import com.openclassrooms.mddapi.dto.*;
+import com.openclassrooms.mddapi.models.Subscription;
+import com.openclassrooms.mddapi.models.Theme;
 import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.repository.SubscriptionRepository;
+import com.openclassrooms.mddapi.repository.ThemeRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
@@ -15,8 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -33,19 +34,12 @@ public class UserService {
     @Autowired
     private JWTService jwtService;
 
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
 
-    public void registerUser(RegisterRequestDTO registerRequestDTO) throws RuntimeException {
-        if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {
-            throw new RuntimeException("Email already used");
-        }
+    @Autowired
+    private ThemeRepository themeRepository;
 
-        User user = new User();
-        user.setName(registerRequestDTO.getName());
-        user.setEmail(registerRequestDTO.getEmail());
-        user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
-
-        userRepository.save(user);
-    }
 
     public TokenResponseDTO authenticateUser(String login, String password) {
 
@@ -59,17 +53,32 @@ public class UserService {
 
     public User getCurrentUserFromSecurityContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
 
+        if (authentication == null || !authentication.isAuthenticated()) {
             throw new AccessDeniedException("User not authenticated");
         }
+
         String email = authentication.getName();
 
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
     }
 
-    public UserDTO updateUser(UserUpdateRequestDTO dto){
+    public UserDTO registerUser(RegisterRequestDTO registerRequestDTO) throws RuntimeException {
+        if (userRepository.existsByEmail(registerRequestDTO.getEmail())) {
+            throw new RuntimeException("Email already used");
+        }
+
+        User user = new User();
+        user.setName(registerRequestDTO.getName());
+        user.setEmail(registerRequestDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(registerRequestDTO.getPassword()));
+
+        User savedUser = userRepository.save(user);
+        return toDTO(savedUser);
+    }
+
+    public UserDTO updateUser(UserUpdateRequestDTO dto) {
         User currentUser = getCurrentUserFromSecurityContext();
 
         if (dto.getName() != null && !dto.getName().trim().isEmpty()) {
@@ -92,6 +101,44 @@ public class UserService {
         return toDTO(currentUser);
     }
 
+    public List<ThemeDTO> getAllUserSubscription() {
+        User currentUser = getCurrentUserFromSecurityContext();
+
+        List<Theme> themes = currentUser.getSubscriptions()
+                .stream()
+                .map(Subscription::getTheme)
+                .toList();
+
+        List<ThemeDTO> themeDTOList = new ArrayList<>();
+        for (Theme theme : themes) {
+            themeDTOList.add(toThemeDTO(theme));
+        }
+
+        return themeDTOList;
+    }
+
+    public SubscriptionDTO subscribeToATheme(int themeId) {
+        User currentUser = getCurrentUserFromSecurityContext();
+        Theme themeToSubscribe = themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme introuvable"));
+        Subscription subscription = new Subscription();
+
+        subscription.setUser(currentUser);
+        subscription.setTheme(themeToSubscribe);
+
+        Subscription suscribedTheme = subscriptionRepository.save(subscription);
+
+        return toSubscriptionDTO(suscribedTheme);
+    }
+
+    public SubscriptionDTO unSubscribeToATheme(int subscriptionId){
+        Subscription subscription = subscriptionRepository.findById(subscriptionId).orElseThrow(() -> new RuntimeException("Theme introuvable"));
+
+        SubscriptionDTO dto = toSubscriptionDTO(subscription);
+        subscriptionRepository.delete(subscription);
+
+        return dto;
+    }
+
     public UserDTO toDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());
@@ -99,8 +146,29 @@ public class UserService {
         userDTO.setEmail(user.getEmail());
         userDTO.setCreatedAt(user.getCreatedAt());
         userDTO.setUpdatedAt(user.getUpdatedAt());
-        userDTO.setThemeSubscription(user.getThemeSubscription());
 
         return userDTO;
+    }
+
+    public ThemeDTO toThemeDTO(Theme theme) {
+        ThemeDTO themeDTO = new ThemeDTO();
+
+        themeDTO.setId(theme.getId());
+        themeDTO.setName(theme.getName());
+        themeDTO.setDescription(theme.getDescription());
+        themeDTO.setCreatedAt(theme.getCreatedAt());
+        themeDTO.setUpdatedAt(theme.getUpdatedAt());
+
+        return themeDTO;
+    }
+
+    public SubscriptionDTO toSubscriptionDTO(Subscription subscription) {
+        SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
+
+        subscriptionDTO.setId(subscription.getId());
+        subscriptionDTO.setUser(subscription.getUser().getName());
+        subscriptionDTO.setTheme(subscription.getTheme().getName());
+
+        return subscriptionDTO;
     }
 }

@@ -19,12 +19,15 @@ public class Article {
 
     String title;
 
-    String author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="userId")
+    User author;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "themeId")
     private Theme theme;
 
+    @Lob
     String content;
 
     @CreationTimestamp

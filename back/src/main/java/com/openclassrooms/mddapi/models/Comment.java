@@ -16,7 +16,10 @@ public class Comment {
     Integer id;
 
     String content;
-    String author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    User author;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -25,7 +28,6 @@ public class Comment {
     @UpdateTimestamp
     Timestamp updatedAt;
 
-    // FOREIGN KEY : Chaque commentaire appartient à UN article
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "articleId")
     private Article article;

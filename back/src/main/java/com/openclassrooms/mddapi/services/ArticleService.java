@@ -39,11 +39,11 @@ public class ArticleService {
     }
 
     //now this is useless because of function below
-    public ArticleDTO getArticleById(Integer id) {
-        Article article = articleRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Article introuvable"));
-        return toDTO(article);
-    }
+//    public ArticleDTO getArticleById(Integer id) {
+//        Article article = articleRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Article introuvable"));
+//        return toDTO(article);
+//    }
 
     public ArticleWithCommentsDTO getArticleWithComments(Integer id){
         Article article = articleRepository.findById(id).orElseThrow(() -> new RuntimeException("Article introuvable"));
@@ -57,11 +57,15 @@ public class ArticleService {
 
         Article articleToCreate = new Article();
         User currentUser = userService.getCurrentUserFromSecurityContext();
-        Theme dtoTheme = themeRepository.findByName(dto.getTheme());
+        Theme articleTheme = themeRepository.findByName(dto.getTheme());
+
+        if (articleTheme == null) {
+            throw new RuntimeException("Theme introuvable");
+        }
 
         articleToCreate.setTitle(dto.getTitle());
-        articleToCreate.setAuthor(currentUser.getName());
-        articleToCreate.setTheme(dtoTheme);
+        articleToCreate.setAuthor(currentUser);
+        articleToCreate.setTheme(articleTheme);
         articleToCreate.setContent(dto.getContent());
 
         Article savedArticle = articleRepository.save(articleToCreate);
@@ -69,14 +73,15 @@ public class ArticleService {
         return toDTO(savedArticle);
     }
 
-    public CommentDTO createComment(Integer id, CommentCreateRequestDTO dto){
+    public CommentDTO createComment(Integer articleId, CommentCreateRequestDTO dto){
         Comment commentToCreate = new Comment();
+        User currentUser = userService.getCurrentUserFromSecurityContext();
 
-        Article article = articleRepository.findById(id)
+        Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new RuntimeException("Article introuvable"));
 
         commentToCreate.setArticle(article);
-        commentToCreate.setAuthor(article.getAuthor());
+        commentToCreate.setAuthor(currentUser);
         commentToCreate.setContent(dto.getContent());
 
         Comment savedComment = commentRepository.save(commentToCreate);
@@ -89,10 +94,9 @@ public class ArticleService {
 
         articleDTO.setId(article.getId());
         articleDTO.setTitle(article.getTitle());
-        articleDTO.setAuthor(article.getAuthor());
+        articleDTO.setAuthor(article.getAuthor().getName());
         articleDTO.setTheme(article.getTheme().getName());
         articleDTO.setContent(article.getContent());
-
         articleDTO.setCreatedAt(article.getCreatedAt());
         articleDTO.setUpdatedAt(article.getUpdatedAt());
 
@@ -104,12 +108,12 @@ public class ArticleService {
 
         dto.setId(article.getId());
         dto.setTitle(article.getTitle());
-        dto.setAuthor(article.getAuthor());
+        dto.setAuthor(article.getAuthor().getName());
         dto.setTheme(article.getTheme().getName());
         dto.setContent(article.getContent());
         dto.setCreatedAt(article.getCreatedAt());
         dto.setUpdatedAt(article.getUpdatedAt());
-
+//A revoir le fonctionnement en dessous
         dto.setComments(article.getComments().stream()
                 .map(this::toCommentDTO)
                 .collect(Collectors.toList()));
@@ -121,7 +125,7 @@ public class ArticleService {
 
         dto.setId(comment.getId());
         dto.setContent(comment.getContent());
-        dto.setAuthor(comment.getAuthor());
+        dto.setAuthor(comment.getAuthor().getName());
         dto.setCreatedAt(comment.getCreatedAt());
         dto.setUpdatedAt(comment.getUpdatedAt());
         dto.setArticleId(comment.getArticle().getId());

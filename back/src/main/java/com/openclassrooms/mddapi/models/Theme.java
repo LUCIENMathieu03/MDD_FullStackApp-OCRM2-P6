@@ -30,4 +30,7 @@ public class Theme {
 
     @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY)
     private List<Article> articles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "theme", fetch = FetchType.LAZY)
+    private List<Subscription> subscriptions = new ArrayList<>();
 }
