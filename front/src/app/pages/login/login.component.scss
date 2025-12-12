@@ -38,15 +38,21 @@
     .champ:not(:nth-last-child(1)) {
       margin-bottom: 20px;
     }
-  }
 
-  button {
-    font-size: 16px;
-    min-width: 139px;
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button {
+        font-size: 16px;
+        min-width: 139px;
+      }
+    }
   }
 }
 .arrow {
   margin: 40px 0px 0px 30px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 900px) {

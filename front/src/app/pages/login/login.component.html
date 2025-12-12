@@ -17,7 +17,7 @@
   <img src="/assets/logo_p6.png" alt="logo" class="logoMobile" />
   <h1>Se connecter</h1>
 
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="champ">
       <label>Email ou nom d'utilisateur</label>
       <input formControlName="email" type="text" />
@@ -46,6 +46,10 @@
         Mot de passe requis
       </div>
     </div>
+    <div class="button">
+      <button mat-raised-button color="primary" type="submit">
+        Se connecter
+      </button>
+    </div>
   </form>
-  <button mat-raised-button color="primary">Se connecter</button>
 </div>
