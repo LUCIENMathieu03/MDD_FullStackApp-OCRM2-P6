@@ -19,6 +19,7 @@ public class Theme {
 
     String name;
 
+    @Lob
     String description;
 
     @CreationTimestamp

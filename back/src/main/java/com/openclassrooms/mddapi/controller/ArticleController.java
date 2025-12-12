@@ -27,6 +27,17 @@ public class ArticleController {
         }
     }
 
+    @GetMapping("/suscribed")
+    public ResponseEntity<?> getAllArticlesFromSuscribedTheme() {
+        try {
+            List<ArticleDTO> articles = articleService.getAllArticleFromSubscribedThemes();
+            return ResponseEntity.ok(articles);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 //    @GetMapping("/{id}")
 //    public ResponseEntity<?> getArticleById(@PathVariable int id) {
 //        try {

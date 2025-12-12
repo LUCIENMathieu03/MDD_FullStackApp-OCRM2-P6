@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ThemeRepository extends JpaRepository<Theme, Integer> {
-    public Theme findByName(String theme);
+    Theme findByName(String theme);
 }

@@ -1,10 +1,7 @@
 package com.openclassrooms.mddapi.services;
 
 import com.openclassrooms.mddapi.dto.*;
-import com.openclassrooms.mddapi.models.Article;
-import com.openclassrooms.mddapi.models.Comment;
-import com.openclassrooms.mddapi.models.Theme;
-import com.openclassrooms.mddapi.models.User;
+import com.openclassrooms.mddapi.models.*;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.ThemeRepository;
@@ -36,6 +33,22 @@ public class ArticleService {
             ArticleDtoList.add(toDTO(article));
         }
         return ArticleDtoList;
+    }
+
+    public List<ArticleDTO> getAllArticleFromSubscribedThemes() {
+        User currentUser = userService.getCurrentUserFromSecurityContext();
+        List<Subscription> allSubscriptions = currentUser.getSubscriptions();
+        List<Theme> themes = new ArrayList<>();
+
+        for(Subscription subscription: allSubscriptions){
+            themes.add(subscription.getTheme());
+        }
+
+        return themes.stream()
+                .flatMap(theme -> theme.getArticles().stream())
+                .map(this::toDTO)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     //now this is useless because of function below
