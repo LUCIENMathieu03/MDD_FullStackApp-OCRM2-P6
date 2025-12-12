@@ -8,18 +8,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm!: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private router: Router, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
-  ngOnInit(): void {}
-
   backHome(): void {
     this.router.navigate(['/']);
+  }
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+    }
   }
 }
