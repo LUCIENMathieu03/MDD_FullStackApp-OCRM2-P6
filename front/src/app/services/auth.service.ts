@@ -2,6 +2,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { jwtDecode } from 'jwt-decode';
+
+interface JwtPayload {
+  exp: number;
+  sub: string;
+  // ...
+}
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +60,15 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    if (!token) return false;
+
+    try {
+      const payload = jwtDecode<JwtPayload>(token);
+      const now = Date.now() / 1000;
+      return payload.exp > now;
+    } catch {
+      return false;
+    }
   }
 }

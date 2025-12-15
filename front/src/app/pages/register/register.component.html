@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header class="registerHeader"></app-header>
 <svg
   (click)="backHome()"
   width="41"
@@ -13,14 +13,18 @@
     fill="black"
   />
 </svg>
-<div class="login">
+<div class="register">
   <img src="/assets/logo_p6.png" alt="logo" class="logoMobile" />
   <h1>Inscription</h1>
 
-  <form [formGroup]="registerForm">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="champ">
       <label>Nom d'utilisateur</label>
-      <input formControlName="name" type="text" />
+      <input
+        formControlName="name"
+        type="text"
+        (input)="resetRegisterError()"
+      />
 
       <div
         *ngIf="
@@ -34,7 +38,11 @@
 
     <div class="champ">
       <label>Adresse e-mail</label>
-      <input formControlName="email" type="text" />
+      <input
+        formControlName="email"
+        type="text"
+        (input)="resetRegisterError()"
+      />
 
       <div
         *ngIf="
@@ -49,7 +57,11 @@
 
     <div class="champ">
       <label>Mot de passe:</label>
-      <input formControlName="password" type="password" />
+      <input
+        formControlName="password"
+        type="password"
+        (input)="resetRegisterError()"
+      />
 
       <div
         *ngIf="
@@ -61,6 +73,16 @@
         Mot de passe requis
       </div>
     </div>
+
+    <div class="champ">
+      <div *ngIf="registerError" class="error">
+        Erreur lors de l'inscription
+      </div>
+    </div>
+    <div class="button">
+      <button mat-raised-button color="primary" type="submit">
+        S'inscrire
+      </button>
+    </div>
   </form>
-  <button mat-raised-button color="primary">S'inscrire</button>
 </div>

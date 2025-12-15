@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header class="headerLogin"></app-header>
 <svg
   (click)="backHome()"
   width="41"
@@ -20,7 +20,11 @@
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="champ">
       <label>Email ou nom d'utilisateur</label>
-      <input formControlName="email" type="text" />
+      <input
+        formControlName="email"
+        type="text"
+        (input)="resetConnexionError()"
+      />
 
       <div
         *ngIf="
@@ -34,7 +38,11 @@
 
     <div class="champ">
       <label>Mot de passe:</label>
-      <input formControlName="password" type="password" />
+      <input
+        formControlName="password"
+        type="password"
+        (input)="resetConnexionError()"
+      />
 
       <div
         *ngIf="
@@ -46,6 +54,12 @@
         Mot de passe requis
       </div>
     </div>
+    <div class="champ">
+      <div *ngIf="this.connexionError" class="error">
+        Email ou mot de passe invalid
+      </div>
+    </div>
+
     <div class="button">
       <button mat-raised-button color="primary" type="submit">
         Se connecter

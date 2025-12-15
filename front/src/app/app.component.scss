@@ -1,82 +1,56 @@
-/* Reset CSS moderne et efficace */
+/* Modern Normalize / Reset */
 *,
 *::before,
 *::after {
+  margin: 0 !important;
+  padding: 0 !important;
   box-sizing: border-box;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
 html {
-  line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, -apple-system, sans-serif;
-  line-height: 1.5;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: 0;
+app-root {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100vh;
+  width: 100%;
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
 ul,
-ol,
-li {
+ol {
   list-style: none;
-  padding-left: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: inherit;
 }
 
 img,
 picture,
-svg,
-video {
+svg {
   display: block;
   max-width: 100%;
 }
 
-input,
-button,
-textarea,
-select {
-  font: inherit;
+html {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/* Formulaires */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+app-root {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block;
+  min-height: 100vh;
 }

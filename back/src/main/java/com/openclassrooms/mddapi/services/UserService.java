@@ -120,6 +120,11 @@ public class UserService {
     public SubscriptionDTO subscribeToATheme(int themeId) {
         User currentUser = getCurrentUserFromSecurityContext();
         Theme themeToSubscribe = themeRepository.findById(themeId).orElseThrow(() -> new RuntimeException("Theme introuvable"));
+
+        if(subscriptionRepository.existsByUserAndTheme(currentUser, themeToSubscribe)){
+            throw new RuntimeException();
+        }
+
         Subscription subscription = new Subscription();
 
         subscription.setUser(currentUser);

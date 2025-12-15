@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  connexionError: boolean = false;
 
   constructor(
     private router: Router,
@@ -34,14 +35,21 @@ export class LoginComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           console.log('Login OK:', response);
+          this.connexionError = false;
           this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Login échoué:', error);
+          this.connexionError = true;
         },
       });
     } else {
+      this.connexionError = true;
       console.log('pas bon');
     }
+  }
+
+  resetConnexionError() {
+    this.connexionError = false;
   }
 }
