@@ -11,11 +11,26 @@ export interface Theme {
   updatedAt: string;
 }
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserServiceService {
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+  getCurrentUser(): Observable<User> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<User>(`${this.authService.apiUrl}api/user/me`, {
+      headers,
+    });
+  }
 
   getUserSubscriptions(): Observable<Theme[]> {
     const headers = this.authService.getAuthHeaders();
@@ -29,7 +44,7 @@ export class UserServiceService {
     const headers = this.authService.getAuthHeaders();
     return this.http.post<Theme>(
       `${this.authService.apiUrl}api/user/me/subscription/${themeId}`,
-      {}, // body vide si POST sans payload
+      {},
       { headers }
     );
   }

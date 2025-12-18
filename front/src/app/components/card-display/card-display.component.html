@@ -7,7 +7,11 @@
   </div>
 
   <div class="cardTextContent">
-    <p>{{ textContent }}</p>
+    <p *ngIf="cardType === 'theme' || cardType === 'abonnement'">
+      Description: {{ textContent }}
+    </p>
+
+    <p *ngIf="cardType === 'article'">Content: {{ textContent }}</p>
   </div>
 
   <div class="cardButton">
