@@ -25,6 +25,7 @@
           typeButton="button"
           textButton="S'abonner"
           [selected]="false"
+          (clicked)="handleCallBack()"
         >
         </app-interaction-button>
       </ng-template>
@@ -35,7 +36,8 @@
         class="buttonAlreadySelected"
         typeButton="button"
         textButton="Se désabonner"
-        [selected]="true"
+        [selected]="false"
+        (clicked)="handleCallBack()"
       >
       </app-interaction-button>
     </div>

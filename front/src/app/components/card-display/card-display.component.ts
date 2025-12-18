@@ -15,8 +15,15 @@ export class CardDisplayComponent implements OnInit {
   @Input() date?: string;
   @Input() auteur?: string;
   @Input() alreadySuscribed?: boolean;
+  @Input() callBack?: () => any;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  handleCallBack() {
+    if (this.callBack) {
+      this.callBack();
+    }
+  }
 }
