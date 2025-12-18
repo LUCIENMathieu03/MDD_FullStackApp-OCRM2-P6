@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,8 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   isMobileMenuOpen: boolean = false;
+  currentRoute = '';
 
-  constructor(private router: Router, protected authService: AuthService) {}
+  constructor(private router: Router, protected authService: AuthService) {
+    this.getCurrentRoute();
+  }
 
   ngOnInit(): void {}
 
@@ -18,8 +21,14 @@ export class HeaderComponent implements OnInit {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
-  closeMobileMenu() {
+  closeMobileMenuAndNavigate(route?: string) {
     this.isMobileMenuOpen = false;
+
+    if (route) {
+      setTimeout(() => {
+        this.router.navigate([route]);
+      }, 300);
+    }
   }
 
   goToHomePage() {
@@ -30,5 +39,17 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
     this.isMobileMenuOpen = false;
     this.router.navigate(['']);
+  }
+
+  isRouteActive(route: string): boolean {
+    return this.currentRoute === route;
+  }
+
+  getCurrentRoute() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = this.router.url;
+      }
+    });
   }
 }

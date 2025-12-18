@@ -80,6 +80,22 @@
       width: 48px;
       height: 48px;
     }
+
+    .userIcon.inactive {
+      display: block;
+    }
+
+    .userIcon.active {
+      display: none;
+    }
+
+    li.active .userIcon.inactive {
+      display: none;
+    }
+
+    li.active .userIcon.active {
+      display: block;
+    }
   }
 
   .mobileMenuBackground {
@@ -130,6 +146,9 @@
 
       li {
         margin-bottom: 20px;
+        &.active {
+          color: #6c5ccf;
+        }
 
         &:nth-last-child(1) {
           margin-bottom: 0;
@@ -149,6 +168,22 @@
       padding-right: 15px;
       width: 48px;
       height: 48px;
+      padding-bottom: 5px;
+    }
+    .userIcon.inactive {
+      display: block;
+    }
+
+    .userIcon.active {
+      display: none;
+    }
+
+    div.active .userIcon.inactive {
+      display: none;
+    }
+
+    div.active .userIcon.active {
+      display: block;
     }
   }
 }
