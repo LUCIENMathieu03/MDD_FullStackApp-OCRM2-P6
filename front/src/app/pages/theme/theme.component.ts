@@ -18,13 +18,7 @@ export class ThemeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadThemeList();
-
-    this.userService.getUserSubscriptions().subscribe({
-      next: (data) => {
-        this.subscriptions = data;
-      },
-      error: (err) => console.error('Erreur chargement abonnements', err),
-    });
+    this.loadUserThemeSubscription();
   }
 
   loadThemeList() {
@@ -34,10 +28,28 @@ export class ThemeComponent implements OnInit {
     });
   }
 
+  loadUserThemeSubscription() {
+    this.userService.getUserSubscriptions().subscribe({
+      next: (data) => {
+        this.subscriptions = data;
+      },
+      error: (err) => console.error('Erreur chargement abonnements', err),
+    });
+  }
+
   isThemeSubscribed(themeId: number): boolean {
     return this.subscriptions.some((sub) => sub.id === themeId);
   }
+
   subscribeToTheme(themeId: number): void {
-    console.log('S abonner au thème:', themeId);
+    this.userService.subscribeToTheme(themeId).subscribe({
+      next: (theme) => {
+        console.log('Abonné au thème:', theme);
+        this.loadUserThemeSubscription();
+      },
+      error: (err) => {
+        console.error('Erreur abonnement:', err);
+      },
+    });
   }
 }

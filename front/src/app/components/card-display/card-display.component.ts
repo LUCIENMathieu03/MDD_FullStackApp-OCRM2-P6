@@ -15,7 +15,7 @@ export class CardDisplayComponent implements OnInit {
   @Input() date?: string;
   @Input() auteur?: string;
   @Input() alreadySuscribed?: boolean;
-  @Input() callBack?: () => {};
+  @Input() callBack?: () => void;
 
   constructor() {}
 

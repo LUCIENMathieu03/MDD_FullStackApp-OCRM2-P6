@@ -15,6 +15,7 @@ import { InteractionButtonComponent } from './components/interaction-button/inte
 import { CardDisplayComponent } from './components/card-display/card-display.component';
 import { CreateComponent } from './pages/create/create.component';
 import { ThemeComponent } from './pages/theme/theme.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ThemeComponent } from './pages/theme/theme.component';
     CardDisplayComponent,
     CreateComponent,
     ThemeComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,

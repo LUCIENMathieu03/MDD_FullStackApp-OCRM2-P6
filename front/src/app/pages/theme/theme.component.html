@@ -6,6 +6,7 @@
     cardType="theme"
     [textContent]="theme.description"
     [alreadySuscribed]="isThemeSubscribed(theme.id)"
+    [callBack]="subscribeToTheme.bind(this, theme.id)"
   >
   </app-card-display>
 </section>

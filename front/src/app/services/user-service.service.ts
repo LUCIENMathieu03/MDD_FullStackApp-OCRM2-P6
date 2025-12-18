@@ -25,9 +25,12 @@ export class UserServiceService {
     );
   }
 
-  isUserSubscribedToTheme(themeId: number): Observable<boolean> {
-    return this.getUserSubscriptions().pipe(
-      map((subscriptions) => subscriptions.some((sub) => sub.id === themeId))
+  subscribeToTheme(themeId: number): Observable<Theme> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.post<Theme>(
+      `${this.authService.apiUrl}api/user/me/subscription/${themeId}`,
+      {}, // body vide si POST sans payload
+      { headers }
     );
   }
 }
