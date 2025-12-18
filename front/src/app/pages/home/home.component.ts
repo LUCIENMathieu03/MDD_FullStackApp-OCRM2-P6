@@ -1,16 +1,33 @@
 import { Component, OnInit } from '@angular/core';
+import { ArticleService } from 'src/app/services/article.service';
 
+export type article = {
+  id: number;
+  title: string;
+  author: string;
+  theme: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  articles: article[] = [];
 
-  ngOnInit(): void {}
+  constructor(private articleService: ArticleService) {}
 
-  mafonction() {
-    console.log('test');
+  ngOnInit(): void {
+    this.articleService.getSuscribedArticle().subscribe({
+      next: (data) => {
+        this.articles = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des articles', err);
+      },
+    });
   }
 }

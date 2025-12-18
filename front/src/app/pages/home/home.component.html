@@ -21,22 +21,12 @@
     </app-card-display>
 
     <app-card-display
-      title="Titre de l'article"
+      *ngFor="let art of articles"
+      [title]="art.title"
       cardType="article"
-      textContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      date="03/11/1997"
-      auteur="Mathieu"
-    >
-    </app-card-display>
-
-    <app-card-display
-      title="Titre de l'article"
-      cardType="abonnement"
-      textContent="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-      date="03/11/1997"
-      auteur="Mathieu"
-      [alreadySuscribed]="false"
-      [callBack]="mafonction.bind(this)"
+      [textContent]="art.content"
+      [date]="art.createdAt"
+      [auteur]="art.author"
     >
     </app-card-display>
   </section>

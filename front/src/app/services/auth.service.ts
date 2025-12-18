@@ -14,7 +14,7 @@ interface JwtPayload {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  public apiUrl = environment.apiUrl;
   private tokenKey = 'auth_token';
 
   constructor(private http: HttpClient) {}
