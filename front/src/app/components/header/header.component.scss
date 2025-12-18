@@ -1,3 +1,8 @@
+.headerContainer {
+  width: 100vw;
+  overflow: hidden;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -67,7 +72,7 @@
   }
 
   .mobileMenuBackground {
-    position: absolute;
+    position: fixed;
     background: #efefefb2;
     width: 100%;
     height: 100vh;
@@ -81,7 +86,7 @@
   }
 
   .mobileMenuSlider {
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -135,6 +140,13 @@
     }
 
     .burgerBtn {
+      display: none;
+    }
+
+    .mobileMenuSlider {
+      display: none;
+    }
+    .mobileMenuBackground {
       display: none;
     }
   }

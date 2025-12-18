@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   connexionError: boolean = false;
+  invalidCredential: boolean = false;
 
   constructor(
     private router: Router,
@@ -35,12 +36,12 @@ export class LoginComponent implements OnInit {
       this.authService.login(credentials).subscribe({
         next: (response) => {
           console.log('Login OK:', response);
-          this.connexionError = false;
+          this.invalidCredential = false;
           this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Login échoué:', error);
-          this.connexionError = true;
+          this.invalidCredential = true;
         },
       });
     } else {
@@ -51,5 +52,6 @@ export class LoginComponent implements OnInit {
 
   resetConnexionError() {
     this.connexionError = false;
+    this.invalidCredential = false;
   }
 }

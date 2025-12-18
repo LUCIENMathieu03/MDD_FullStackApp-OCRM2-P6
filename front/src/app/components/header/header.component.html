@@ -1,47 +1,51 @@
-<div class="header">
-  <img
-    src="/assets/logo_p6.png"
-    alt="logo"
-    class="logo"
-    (click)="goToHomePage()"
-  />
+<div class="headerContainer">
+  <div class="header">
+    <img
+      src="/assets/logo_p6.png"
+      alt="logo"
+      class="logo"
+      (click)="goToHomePage()"
+    />
 
-  <div class="rightBlock">
-    <button class="burgerBtn" (click)="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="rightBlock">
+      <button class="burgerBtn" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-    <div *ngIf="this.authService.isLoggedIn()">
-      <ul class="desktopMenu">
-        <li class="deconnectLink" (click)="logout()">se déconnecter</li>
-        <li>Articles</li>
-        <li>Thèmes</li>
-        <li><img src="/assets/user.png" alt="userIcon" class="userIcon" /></li>
-      </ul>
+      <div *ngIf="this.authService.isLoggedIn()">
+        <ul class="desktopMenu">
+          <li class="deconnectLink" (click)="logout()">se déconnecter</li>
+          <li>Articles</li>
+          <li>Thèmes</li>
+          <li>
+            <img src="/assets/user.png" alt="userIcon" class="userIcon" />
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <div
-    class="mobileMenuBackground"
-    *ngIf="isMobileMenuOpen"
-    (click)="closeMobileMenu()"
-  ></div>
+    <div
+      class="mobileMenuBackground"
+      *ngIf="isMobileMenuOpen"
+      (click)="closeMobileMenu()"
+    ></div>
 
-  <div
-    class="mobileMenuSlider"
-    [ngClass]="{ 'mobile-menu-open': isMobileMenuOpen }"
-  >
-    <ul class="mobileMenu">
-      <li class="deconnectLink" (click)="closeMobileMenu(); logout()">
-        se déconnecter
-      </li>
-      <li (click)="closeMobileMenu()">Articles</li>
-      <li (click)="closeMobileMenu()">Thèmes</li>
-    </ul>
-    <div (click)="closeMobileMenu()">
-      <img src="/assets/user.png" alt="userIcon" class="userIcon" />
+    <div
+      class="mobileMenuSlider"
+      [ngClass]="{ 'mobile-menu-open': isMobileMenuOpen }"
+    >
+      <ul class="mobileMenu">
+        <li class="deconnectLink" (click)="closeMobileMenu(); logout()">
+          se déconnecter
+        </li>
+        <li (click)="closeMobileMenu()">Articles</li>
+        <li (click)="closeMobileMenu()">Thèmes</li>
+      </ul>
+      <div (click)="closeMobileMenu()">
+        <img src="/assets/user.png" alt="userIcon" class="userIcon" />
+      </div>
     </div>
   </div>
 </div>

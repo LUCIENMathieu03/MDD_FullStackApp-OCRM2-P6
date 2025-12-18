@@ -56,6 +56,12 @@
     </div>
     <div class="champ">
       <div *ngIf="this.connexionError" class="error">
+        Formulaire de connexion mal complété
+      </div>
+    </div>
+
+    <div class="champ">
+      <div *ngIf="this.invalidCredential" class="error">
         Email ou mot de passe invalid
       </div>
     </div>
