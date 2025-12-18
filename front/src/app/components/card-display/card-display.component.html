@@ -1,0 +1,43 @@
+<div class="cardDisplay">
+  <h1 class="title">{{ title }}</h1>
+
+  <div *ngIf="cardType === 'article'" class="articleInfo">
+    <p *ngIf="date">Date : {{ date }}</p>
+    <p *ngIf="auteur" class="author">Auteur : {{ auteur }}</p>
+  </div>
+
+  <div class="cardTextContent">
+    <p>{{ textContent }}</p>
+  </div>
+
+  <div class="cardButton">
+    <div *ngIf="cardType === 'theme'">
+      <div *ngIf="alreadySuscribed === true; else alreadySubTemplate">
+        <app-interaction-button
+          typeButton="button"
+          textButton="Déjà abonné"
+          [selected]="true"
+        >
+        </app-interaction-button>
+      </div>
+      <ng-template #alreadySubTemplate>
+        <app-interaction-button
+          typeButton="button"
+          textButton="S'abonner"
+          [selected]="false"
+        >
+        </app-interaction-button>
+      </ng-template>
+    </div>
+
+    <div *ngIf="cardType === 'abonnement'">
+      <app-interaction-button
+        class="buttonAlreadySelected"
+        typeButton="button"
+        textButton="Se désabonner"
+        [selected]="true"
+      >
+      </app-interaction-button>
+    </div>
+  </div>
+</div>

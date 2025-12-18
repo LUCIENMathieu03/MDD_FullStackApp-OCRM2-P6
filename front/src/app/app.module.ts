@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { InteractionButtonComponent } from './components/interaction-button/interaction-button.component';
+import { CardDisplayComponent } from './components/card-display/card-display.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     RegisterComponent,
     HomeComponent,
+    InteractionButtonComponent,
+    CardDisplayComponent,
   ],
   imports: [
     BrowserModule,
