@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InteractionButtonComponent } from './components/interaction-button/interaction-button.component';
 import { CardDisplayComponent } from './components/card-display/card-display.component';
 import { CreateComponent } from './pages/create/create.component';
+import { ThemeComponent } from './pages/theme/theme.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CreateComponent } from './pages/create/create.component';
     InteractionButtonComponent,
     CardDisplayComponent,
     CreateComponent,
+    ThemeComponent,
   ],
   imports: [
     BrowserModule,
