@@ -2,7 +2,7 @@
   <h1 class="title">{{ title }}</h1>
 
   <div *ngIf="cardType === 'article'" class="articleInfo">
-    <p *ngIf="date">Date : {{ date }}</p>
+    <p *ngIf="date">Date : {{ date | date : "dd/MM/yyyy" }}</p>
     <p *ngIf="auteur" class="author">Auteur : {{ auteur }}</p>
   </div>
 

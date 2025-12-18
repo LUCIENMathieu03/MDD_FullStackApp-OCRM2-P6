@@ -1,0 +1,86 @@
+<app-header></app-header>
+<svg
+  (click)="backHome()"
+  width="41"
+  height="23"
+  viewBox="0 0 41 23"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class="arrow"
+>
+  <path
+    d="M0.439339 9.98528C-0.146446 10.5711 -0.146446 11.5208 0.439339 12.1066L9.98528 21.6525C10.5711 22.2383 11.5208 22.2383 12.1066 21.6525C12.6924 21.0668 12.6924 20.117 12.1066 19.5312L3.62132 11.0459L12.1066 2.56066C12.6924 1.97488 12.6924 1.02513 12.1066 0.439342C11.5208 -0.146444 10.5711 -0.146444 9.98528 0.439342L0.439339 9.98528ZM40.5 9.54594L1.5 9.54594V12.5459L40.5 12.5459V9.54594Z"
+    fill="black"
+  />
+</svg>
+
+<div class="createArticle">
+  <h1>Créer un nouvel article</h1>
+
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <div class="champ">
+      <select formControlName="theme" (change)="resetCreateError()">
+        <option value="" disabled selected>Sélectionner un thème</option>
+        <option *ngFor="let t of themes" [value]="t.id">
+          {{ t.name }}
+        </option>
+      </select>
+
+      <div
+        *ngIf="
+          createForm.get('theme')?.invalid && createForm.get('theme')?.touched
+        "
+        class="error"
+      >
+        Theme requis
+      </div>
+    </div>
+
+    <div class="champ">
+      <input
+        formControlName="title"
+        type="text"
+        (input)="resetCreateError()"
+        placeholder="Titre de l'article"
+      />
+
+      <div
+        *ngIf="
+          createForm.get('title')?.invalid && createForm.get('title')?.touched
+        "
+        class="error"
+      >
+        Titre requis
+      </div>
+    </div>
+
+    <div class="champ">
+      <textarea
+        formControlName="content"
+        (input)="resetCreateError()"
+        placeholder="Contenu de l'article"
+        rows="5"
+      ></textarea>
+
+      <div
+        *ngIf="
+          createForm.get('content')?.invalid &&
+          createForm.get('content')?.touched
+        "
+        class="error"
+      >
+        Contenu de l'article requis
+      </div>
+    </div>
+
+    <div class="champ">
+      <div *ngIf="createError" class="error">
+        Erreur lors de la creation de l'article
+      </div>
+    </div>
+    <div class="button">
+      <app-interaction-button typeButton="submit" textButton="Créer">
+      </app-interaction-button>
+    </div>
+  </form>
+</div>

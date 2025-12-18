@@ -25,11 +25,12 @@
     margin-bottom: 25px;
   }
 
-  .homeArticle {
+  .homeArticles {
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 17px;
     margin-bottom: 25px;
+    width: 100%;
   }
 }
 @media screen and (min-width: 900px) {
@@ -45,7 +46,7 @@
       width: 100%;
     }
 
-    .homeArticle {
+    .homeArticles {
       grid-template-columns: 1fr 1fr;
       row-gap: 21px;
       column-gap: 44px;

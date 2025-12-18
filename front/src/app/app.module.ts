@@ -13,6 +13,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { InteractionButtonComponent } from './components/interaction-button/interaction-button.component';
 import { CardDisplayComponent } from './components/card-display/card-display.component';
+import { CreateComponent } from './pages/create/create.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CardDisplayComponent } from './components/card-display/card-display.com
     HomeComponent,
     InteractionButtonComponent,
     CardDisplayComponent,
+    CreateComponent,
   ],
   imports: [
     BrowserModule,

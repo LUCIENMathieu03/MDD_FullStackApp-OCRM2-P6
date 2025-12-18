@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 
 export type article = {
@@ -18,7 +19,7 @@ export type article = {
 export class HomeComponent implements OnInit {
   articles: article[] = [];
 
-  constructor(private articleService: ArticleService) {}
+  constructor(private articleService: ArticleService, private router: Router) {}
 
   ngOnInit(): void {
     this.articleService.getSuscribedArticle().subscribe({
@@ -29,5 +30,9 @@ export class HomeComponent implements OnInit {
         console.error('Erreur lors du chargement des articles', err);
       },
     });
+  }
+
+  createArticleClick(): void {
+    this.router.navigate(['create']);
   }
 }
