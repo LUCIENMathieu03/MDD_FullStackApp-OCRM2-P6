@@ -124,7 +124,6 @@ public class UserService {
         if(subscriptionRepository.existsByUserAndTheme(currentUser, themeToSubscribe)){
             throw new RuntimeException();
         }
-
         Subscription subscription = new Subscription();
 
         subscription.setUser(currentUser);
@@ -135,9 +134,11 @@ public class UserService {
         return toSubscriptionDTO(suscribedTheme);
     }
 
-    public SubscriptionDTO unSubscribeToATheme(int subscriptionId){
-        Subscription subscription = subscriptionRepository.findById(subscriptionId).orElseThrow(() -> new RuntimeException("Theme introuvable"));
-
+    public SubscriptionDTO unSubscribeToATheme(int themeId){
+        User currentUser = getCurrentUserFromSecurityContext();
+        Subscription subscription = subscriptionRepository
+                .findByUserAndThemeId(currentUser, themeId)
+                .orElseThrow(() -> new RuntimeException("Subscription au thème introuvable"));
         SubscriptionDTO dto = toSubscriptionDTO(subscription);
         subscriptionRepository.delete(subscription);
 

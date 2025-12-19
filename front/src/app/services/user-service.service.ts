@@ -32,6 +32,19 @@ export class UserServiceService {
     });
   }
 
+  updateUserProfile(userData: {
+    name?: string;
+    email?: string;
+    password?: string;
+  }): Observable<User> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.put<User>(
+      `${this.authService.apiUrl}api/user/me/update`,
+      userData,
+      { headers }
+    );
+  }
+
   getUserSubscriptions(): Observable<Theme[]> {
     const headers = this.authService.getAuthHeaders();
     return this.http.get<Theme[]>(
@@ -45,6 +58,14 @@ export class UserServiceService {
     return this.http.post<Theme>(
       `${this.authService.apiUrl}api/user/me/subscription/${themeId}`,
       {},
+      { headers }
+    );
+  }
+
+  unSubscribeToTheme(themeId: number): Observable<void> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.delete<void>(
+      `${this.authService.apiUrl}api/user/me/subscription/${themeId}`,
       { headers }
     );
   }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ArticleService, Theme } from 'src/app/services/article.service';
+import { Theme } from 'src/app/services/article.service';
 import {
   User,
   UserServiceService,
@@ -16,6 +15,7 @@ export class UserComponent implements OnInit {
   userForm: FormGroup;
   saveError: boolean = false;
   suscribedThemes: Theme[] = [];
+  originalValues: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +36,7 @@ export class UserComponent implements OnInit {
   loadUser(): void {
     this.userService.getCurrentUser().subscribe({
       next: (user: User) => {
+        this.originalValues = { name: user.name, email: user.email };
         this.userForm.patchValue({
           name: user.name,
           email: user.email,
@@ -55,6 +56,15 @@ export class UserComponent implements OnInit {
     });
   }
 
+  unSuscribeToTheme(subscriptionId: number) {
+    this.userService.unSubscribeToTheme(subscriptionId).subscribe({
+      next: (res) => {
+        this.loadUserSubscriptions(), console.log('Désabonnement réussi:', res);
+      },
+      error: (err) => console.error('Erreur:', err),
+    });
+  }
+
   resetSaveError() {
     this.saveError = false;
   }
@@ -64,5 +74,39 @@ export class UserComponent implements OnInit {
       this.userForm.markAllAsTouched();
       return;
     }
+
+    const updateData: any = {};
+
+    const currentName = this.userForm.get('name')?.value;
+    const currentEmail = this.userForm.get('email')?.value;
+    const currentPassword = this.userForm.get('password')?.value;
+
+    if (currentName && currentName !== this.originalValues.name) {
+      updateData.name = currentName;
+    }
+    if (currentEmail && currentEmail !== this.originalValues.email) {
+      updateData.email = currentEmail;
+    }
+    if (currentPassword) {
+      updateData.password = currentPassword;
+    }
+    if (Object.keys(updateData).length === 0) {
+      console.log('Aucun champ modifié');
+      return;
+    }
+
+    this.userService.updateUserProfile(updateData).subscribe({
+      next: (updatedUser: User) => {
+        console.log('Profil mis à jour:', updatedUser);
+        this.saveError = false;
+        this.loadUser();
+        window.location.reload();
+        this.userForm.get('password')?.setValue('');
+      },
+      error: (err) => {
+        console.error('Erreur mise à jour:', err);
+        this.saveError = true;
+      },
+    });
   }
 }

@@ -59,10 +59,10 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("me/subscription/{subscriptionId}")
-    public ResponseEntity<?> deleteSubscription(@PathVariable int subscriptionId){
+    @DeleteMapping("me/subscription/{themeId}")
+    public ResponseEntity<?> deleteSubscription(@PathVariable int themeId){
         try {
-            SubscriptionDTO DeletedSubscriptionDTO = userService.unSubscribeToATheme(subscriptionId);
+            SubscriptionDTO DeletedSubscriptionDTO = userService.unSubscribeToATheme(themeId);
             return ResponseEntity.ok(DeletedSubscriptionDTO);
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

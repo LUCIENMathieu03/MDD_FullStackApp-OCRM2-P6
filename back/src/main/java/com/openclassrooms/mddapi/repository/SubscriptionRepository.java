@@ -12,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface SubscriptionRepository extends JpaRepository<Subscription, Integer> {
     boolean existsByUserAndTheme(User user, Theme theme);
+    Optional<Subscription> findByUserAndThemeId(User user, int themeId);
 }

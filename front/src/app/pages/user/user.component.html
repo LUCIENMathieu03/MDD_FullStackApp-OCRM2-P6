@@ -35,7 +35,7 @@
           "
           class="error"
         >
-          Titre requis
+          Email correct requis
         </div>
       </div>
 
@@ -65,10 +65,11 @@
     <h1>Abonnement</h1>
     <div class="abonnementList">
       <app-card-display
-        *ngFor="let subscription of suscribedThemes"
-        [title]="subscription.name"
+        *ngFor="let theme of suscribedThemes"
+        [title]="theme.name"
         cardType="abonnement"
-        [textContent]="subscription.description"
+        [textContent]="theme.description"
+        [callBack]="unSuscribeToTheme.bind(this, theme.id)"
       >
       </app-card-display>
     </div>
