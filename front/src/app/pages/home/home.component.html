@@ -17,14 +17,17 @@
     <p>Commencer par vous abonner à un thème</p>
   </div>
   <section class="homeArticles">
-    <app-card-display
-      *ngFor="let art of articles"
-      [title]="art.title"
-      cardType="article"
-      [textContent]="art.content"
-      [date]="art.createdAt"
-      [auteur]="art.author"
-    >
-    </app-card-display>
+    <div *ngFor="let art of articles">
+      <a [routerLink]="['/article', art.id]">
+        <app-card-display
+          [title]="art.title"
+          cardType="article"
+          [textContent]="art.content"
+          [date]="art.createdAt"
+          [auteur]="art.author"
+        >
+        </app-card-display>
+      </a>
+    </div>
   </section>
 </div>

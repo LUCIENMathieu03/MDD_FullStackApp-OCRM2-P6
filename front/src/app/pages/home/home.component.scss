@@ -31,6 +31,12 @@
     row-gap: 17px;
     margin-bottom: 25px;
     width: 100%;
+
+    a {
+      text-decoration: none;
+      color: black;
+      cursor: pointer;
+    }
   }
 }
 @media screen and (min-width: 900px) {

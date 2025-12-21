@@ -16,6 +16,7 @@ import { CardDisplayComponent } from './components/card-display/card-display.com
 import { CreateComponent } from './pages/create/create.component';
 import { ThemeComponent } from './pages/theme/theme.component';
 import { UserComponent } from './pages/user/user.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { UserComponent } from './pages/user/user.component';
     CreateComponent,
     ThemeComponent,
     UserComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,

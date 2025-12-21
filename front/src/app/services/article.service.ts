@@ -17,17 +17,47 @@ export interface ArticleCreateDto {
   content: string;
 }
 
+export interface Comment {
+  id: number;
+  content: string;
+  author: string;
+  createdAt: string;
+  updatedAt: string;
+  articleId: number;
+}
+export interface Article {
+  id: number;
+  title: string;
+  author: string;
+  theme: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  comments?: Comment[];
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getSuscribedArticle(): Observable<any> {
+  getArticleDetail(articleId: number): Observable<Article> {
     const headers = this.authService.getAuthHeaders();
-    return this.http.get(`${this.authService.apiUrl}api/article/suscribed`, {
-      headers,
-    });
+    return this.http.get<Article>(
+      `${this.authService.apiUrl}api/article/${articleId}`,
+      { headers }
+    );
+  }
+
+  getSuscribedArticle(): Observable<Article[]> {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.get<Article[]>(
+      `${this.authService.apiUrl}api/article/suscribed`,
+      {
+        headers,
+      }
+    );
   }
 
   getThemes(): Observable<Theme[]> {
