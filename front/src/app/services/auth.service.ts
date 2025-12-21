@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 interface JwtPayload {
   exp: number;
@@ -17,7 +18,7 @@ export class AuthService {
   public apiUrl = environment.apiUrl;
   private tokenKey = 'auth_token';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { email: string; password: string }): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -53,6 +54,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem(this.tokenKey);
+    this.router.navigate(['']);
   }
 
   getToken(): string | null {

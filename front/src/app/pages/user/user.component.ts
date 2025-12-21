@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Theme } from 'src/app/services/article.service';
+import { AuthService } from 'src/app/services/auth.service';
 import {
   User,
   UserServiceService,
@@ -19,7 +20,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserServiceService
+    private userService: UserServiceService,
+    private authService: AuthService
   ) {
     this.userForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -100,8 +102,8 @@ export class UserComponent implements OnInit {
         console.log('Profil mis à jour:', updatedUser);
         this.saveError = false;
         this.loadUser();
-        window.location.reload();
         this.userForm.get('password')?.setValue('');
+        this.authService.logout();
       },
       error: (err) => {
         console.error('Erreur mise à jour:', err);
