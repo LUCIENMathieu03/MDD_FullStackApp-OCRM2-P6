@@ -18,18 +18,36 @@ export type article = {
 })
 export class HomeComponent implements OnInit {
   articles: article[] = [];
+  isAscending: boolean = false;
 
   constructor(private articleService: ArticleService, private router: Router) {}
 
   ngOnInit(): void {
+    this.loadSuscribedArticle();
+  }
+
+  loadSuscribedArticle() {
     this.articleService.getSuscribedArticle().subscribe({
       next: (data) => {
+        console.log(data);
         this.articles = data;
+        this.toggleSort();
       },
       error: (err) => {
         console.error('Erreur lors du chargement des articles', err);
       },
     });
+  }
+
+  toggleSort(): void {
+    this.articles.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+
+      return this.isAscending ? dateA - dateB : dateB - dateA;
+    });
+
+    this.isAscending = !this.isAscending;
   }
 
   createArticleClick(): void {

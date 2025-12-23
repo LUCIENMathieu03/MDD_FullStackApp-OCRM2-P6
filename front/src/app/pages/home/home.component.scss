@@ -10,14 +10,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
     margin-top: 18px;
-
     font-size: 16px;
     font-weight: 700;
+    user-select: none;
+    cursor: pointer;
 
     img {
       margin-left: 10px;
+    }
+
+    .filterArrow {
+      transition: transform 0.3s ease;
+    }
+
+    .filterArrow.rotated {
+      transform: rotate(-180deg);
     }
   }
 
