@@ -73,4 +73,15 @@ export class ArticleService {
       headers,
     });
   }
+
+  commentArticle(articleId: number, body: { content: string }) {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.post(
+      `${this.authService.apiUrl}api/article/${articleId}/comment`,
+      body,
+      {
+        headers,
+      }
+    );
+  }
 }

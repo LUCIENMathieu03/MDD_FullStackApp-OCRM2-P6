@@ -2,7 +2,7 @@
   margin: 35px 0 0 14px;
 }
 .article {
-  padding: 22px 14px 150px 14px;
+  padding: 22px 14px 200px 14px;
   font-family: Inter;
   position: relative;
   font-style: normal;
@@ -41,6 +41,14 @@
   h2 {
     font-weight: normal;
   }
+  .comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > div {
+      width: 100%;
+    }
+  }
 
   .commentContent {
     .comUsername {
@@ -52,14 +60,18 @@
       padding: 18px 14px;
       background: #eeeeee;
       border-radius: 16px;
-      font-size: 2Opx;
+      font-size: 20px;
+      width: -webkit-fill-available;
     }
   }
-
+  .error {
+    color: red;
+  }
   .writeComment {
-    padding: 10px 14px 8px 14px;
     display: flex;
+    padding: 10px 14px 8px 14px;
     align-items: center;
+    flex-direction: column;
     justify-content: space-between;
     background-color: white;
 
@@ -67,6 +79,11 @@
     bottom: 0;
     left: 0;
     right: 0;
+
+    .commentForm {
+      display: flex;
+      align-items: center;
+    }
 
     Textarea {
       color: #8a8c8c;
@@ -79,6 +96,10 @@
       font-size: 400;
       padding-top: 22px;
       margin-right: 8px;
+    }
+    button {
+      background: none;
+      border: none;
     }
     svg {
       width: 43px !important;
@@ -116,15 +137,13 @@
 
         .commentContent {
           display: flex;
-          max-width: 570px;
           justify-content: center;
           min-height: 100px;
+
           .comUsername {
             display: block;
             margin-top: 5px;
             margin-right: 16px;
-          }
-          .comContent {
           }
         }
       }

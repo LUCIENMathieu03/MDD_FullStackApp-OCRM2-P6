@@ -30,6 +30,7 @@
     </div>
 
     <div class="separator"></div>
+
     <h2>Commentaires</h2>
     <div class="comments">
       <div *ngFor="let com of article?.comments">
@@ -40,30 +41,47 @@
       </div>
     </div>
 
-    <div class="writeComment">
-      <Textarea placeholder="Écrivez ici votre commentaire"></Textarea>
-      <svg
-        width="48"
-        height="48"
-        viewBox="0 0 48 48"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M45.4999 2.50008L21.8499 26.1501"
-          stroke="#7763C5"
-          stroke-width="5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M45.5 2.50008L30.45 45.5001L21.85 26.1501L2.5 17.5501L45.5 2.50008Z"
-          stroke="#7763C5"
-          stroke-width="5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </div>
+    <form
+      [formGroup]="commentForm"
+      class="writeComment"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="commentForm">
+        <textarea
+          formControlName="content"
+          placeholder="Écrivez ici votre commentaire"
+          (input)="resetError()"
+        ></textarea>
+
+        <button type="submit">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M45.4999 2.50008L21.8499 26.1501"
+              stroke="#7763C5"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M45.5 2.50008L30.45 45.5001L21.85 26.1501L2.5 17.5501L45.5 2.50008Z"
+              stroke="#7763C5"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div *ngIf="this.invalidComment" class="error">
+        Erreur lors de la soumission du commentaire
+      </div>
+    </form>
   </section>
 </div>
