@@ -4,6 +4,8 @@ import com.openclassrooms.mddapi.dto.ArticleDTO;
 import com.openclassrooms.mddapi.dto.ThemeCreateRequestDTO;
 import com.openclassrooms.mddapi.dto.ThemeDTO;
 import com.openclassrooms.mddapi.services.ThemeService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/theme")
+@Tag(name = "Theme", description = "Gestion des theme")
+@SecurityRequirement(name = "bearerAuth")
 public class ThemeController {
 
     @Autowired

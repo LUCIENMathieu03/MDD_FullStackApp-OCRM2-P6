@@ -4,12 +4,14 @@ import com.openclassrooms.mddapi.dto.LoginRequestDTO;
 import com.openclassrooms.mddapi.dto.RegisterRequestDTO;
 import com.openclassrooms.mddapi.dto.TokenResponseDTO;
 import com.openclassrooms.mddapi.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Auth", description = "Gestion de l'authentification")
 public class AuthController {
     @Autowired
     private UserService userService;
