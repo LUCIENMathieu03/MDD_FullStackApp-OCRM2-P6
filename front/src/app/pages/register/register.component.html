@@ -1,0 +1,92 @@
+<app-header class="registerHeader"></app-header>
+<svg
+  (click)="backHome()"
+  width="41"
+  height="23"
+  viewBox="0 0 41 23"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  class="arrow"
+>
+  <path
+    d="M0.439339 9.98528C-0.146446 10.5711 -0.146446 11.5208 0.439339 12.1066L9.98528 21.6525C10.5711 22.2383 11.5208 22.2383 12.1066 21.6525C12.6924 21.0668 12.6924 20.117 12.1066 19.5312L3.62132 11.0459L12.1066 2.56066C12.6924 1.97488 12.6924 1.02513 12.1066 0.439342C11.5208 -0.146444 10.5711 -0.146444 9.98528 0.439342L0.439339 9.98528ZM40.5 9.54594L1.5 9.54594V12.5459L40.5 12.5459V9.54594Z"
+    fill="black"
+  />
+</svg>
+<div class="register">
+  <img src="/assets/logo_p6.png" alt="logo" class="logoMobile" />
+  <h1>Inscription</h1>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="champ">
+      <label>Nom d'utilisateur</label>
+      <input
+        formControlName="name"
+        type="text"
+        (input)="resetRegisterError()"
+      />
+
+      <div
+        *ngIf="
+          registerForm.get('name')?.invalid && registerForm.get('name')?.touched
+        "
+        class="error"
+      >
+        Nom d'utilisateur ou nom requis
+      </div>
+    </div>
+
+    <div class="champ">
+      <label>Adresse e-mail</label>
+      <input
+        formControlName="email"
+        type="text"
+        (input)="resetRegisterError()"
+      />
+
+      <div
+        *ngIf="
+          registerForm.get('email')?.invalid &&
+          registerForm.get('email')?.touched
+        "
+        class="error"
+      >
+        Email invalide
+      </div>
+    </div>
+
+    <div class="champ">
+      <label>Mot de passe:</label>
+      <input
+        formControlName="password"
+        type="password"
+        (input)="resetRegisterError()"
+      />
+
+      <div
+        *ngIf="
+          registerForm.get('password')?.invalid &&
+          registerForm.get('password')?.touched
+        "
+        class="error"
+      >
+        Mot de passe requis<br />
+        Le mot de passe doit contenir 8 caractère et au moins : <br />
+        - un chiffre,<br />
+        - une lettre minuscule, <br />
+        - une lettre majuscule,<br />
+        - un caractère spécial
+      </div>
+    </div>
+
+    <div class="champ">
+      <div *ngIf="registerError" class="error">
+        Erreur lors de l'inscription
+      </div>
+    </div>
+    <div class="button">
+      <app-interaction-button typeButton="submit" textButton="S'inscrire">
+      </app-interaction-button>
+    </div>
+  </form>
+</div>

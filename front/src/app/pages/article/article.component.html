@@ -1,0 +1,87 @@
+<app-header></app-header>
+<div class="page">
+  <svg
+    (click)="backHome()"
+    width="41"
+    height="23"
+    viewBox="0 0 41 23"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    class="arrow"
+  >
+    <path
+      d="M0.439339 9.98528C-0.146446 10.5711 -0.146446 11.5208 0.439339 12.1066L9.98528 21.6525C10.5711 22.2383 11.5208 22.2383 12.1066 21.6525C12.6924 21.0668 12.6924 20.117 12.1066 19.5312L3.62132 11.0459L12.1066 2.56066C12.6924 1.97488 12.6924 1.02513 12.1066 0.439342C11.5208 -0.146444 10.5711 -0.146444 9.98528 0.439342L0.439339 9.98528ZM40.5 9.54594L1.5 9.54594V12.5459L40.5 12.5459V9.54594Z"
+      fill="black"
+    />
+  </svg>
+  <section class="article">
+    <div class="title">
+      <h1>{{ article?.title }}</h1>
+    </div>
+
+    <div class="articleInfo">
+      <p>Date: {{ article?.createdAt | date : "dd/mm/yyyy" }}</p>
+      <p>Auteur: {{ article?.author }}</p>
+      <p>Theme: {{ article?.theme }}</p>
+    </div>
+
+    <div class="articleContent">
+      <p>Content: {{ article?.content }}</p>
+    </div>
+
+    <div class="separator"></div>
+
+    <h2>Commentaires</h2>
+    <div class="comments">
+      <div *ngFor="let com of article?.comments">
+        <div class="commentContent">
+          <p class="comUsername">{{ com.author }}</p>
+          <p class="comContent">{{ com.content }}</p>
+        </div>
+      </div>
+    </div>
+
+    <form
+      [formGroup]="commentForm"
+      class="writeComment"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="commentForm">
+        <textarea
+          formControlName="content"
+          placeholder="Écrivez ici votre commentaire"
+          (input)="resetError()"
+        ></textarea>
+
+        <button type="submit">
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M45.4999 2.50008L21.8499 26.1501"
+              stroke="#7763C5"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M45.5 2.50008L30.45 45.5001L21.85 26.1501L2.5 17.5501L45.5 2.50008Z"
+              stroke="#7763C5"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div *ngIf="this.invalidComment" class="error">
+        Erreur lors de la soumission du commentaire
+      </div>
+    </form>
+  </section>
+</div>

@@ -1,0 +1,43 @@
+.cardDisplay {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Inter;
+  height: -webkit-fill-available;
+
+  .title {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: Inter;
+    margin-bottom: 9px;
+  }
+
+  .articleInfo {
+    display: flex;
+
+    .author {
+      margin-left: 20px;
+    }
+  }
+
+  .cardTextContent {
+    display: -webkit-box;
+    line-clamp: 5;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .cardButton {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}

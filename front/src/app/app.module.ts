@@ -4,15 +4,42 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthenticationComponent } from './pages/authentication/authentication.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HeaderComponent } from './components/header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { InteractionButtonComponent } from './components/interaction-button/interaction-button.component';
+import { CardDisplayComponent } from './components/card-display/card-display.component';
+import { CreateComponent } from './pages/create/create.component';
+import { ThemeComponent } from './pages/theme/theme.component';
+import { UserComponent } from './pages/user/user.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    AuthenticationComponent,
+    LoginComponent,
+    HeaderComponent,
+    RegisterComponent,
+    HomeComponent,
+    InteractionButtonComponent,
+    CardDisplayComponent,
+    CreateComponent,
+    ThemeComponent,
+    UserComponent,
+    ArticleComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

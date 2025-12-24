@@ -1,0 +1,77 @@
+<app-header></app-header>
+
+<div class="userPage">
+  <section class="userForm">
+    <h1>Profil utilisateur</h1>
+
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="champ">
+        <input
+          formControlName="name"
+          type="text"
+          (input)="resetSaveError()"
+          placeholder="Username"
+        />
+
+        <div
+          *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched"
+          class="error"
+        >
+          Nom requis
+        </div>
+      </div>
+
+      <div class="champ">
+        <input
+          formControlName="email"
+          type="email"
+          (input)="resetSaveError()"
+          placeholder="email@email.fr"
+        />
+
+        <div
+          *ngIf="
+            userForm.get('email')?.invalid && userForm.get('email')?.touched
+          "
+          class="error"
+        >
+          Email correct requis
+        </div>
+      </div>
+
+      <div class="champ">
+        <input
+          formControlName="password"
+          type="text"
+          (input)="resetSaveError()"
+          placeholder="Mot de passe"
+        />
+      </div>
+
+      <div class="button">
+        <app-interaction-button typeButton="submit" textButton="Sauvegarder">
+        </app-interaction-button>
+      </div>
+
+      <div class="champ">
+        <div *ngIf="saveError" class="error">
+          Erreur lors de l'enregistrement
+        </div>
+      </div>
+    </form>
+  </section>
+  <div class="separator"></div>
+  <section class="abonnement">
+    <h1>Abonnement</h1>
+    <div class="abonnementList">
+      <app-card-display
+        *ngFor="let theme of suscribedThemes"
+        [title]="theme.name"
+        cardType="abonnement"
+        [textContent]="theme.description"
+        [callBack]="unSuscribeToTheme.bind(this, theme.id)"
+      >
+      </app-card-display>
+    </div>
+  </section>
+</div>

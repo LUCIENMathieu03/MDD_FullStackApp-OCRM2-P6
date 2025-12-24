@@ -1,0 +1,83 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .logoMobile {
+    width: 225px;
+    height: 130px;
+    margin-top: 30px;
+  }
+
+  form {
+    margin: 20px 22px 40px 22px;
+    font-size: 16px;
+
+    .champ {
+      display: flex;
+      flex-direction: column;
+      margin: 0px 22px;
+
+      input {
+        width: 250px;
+        height: 50px;
+        border: 1px solid black;
+        border-radius: 8px;
+        font-size: 18px;
+      }
+
+      .error {
+        color: red;
+      }
+    }
+
+    .champ:not(:nth-last-child(1)) {
+      margin-bottom: 20px;
+    }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+.arrow {
+  margin: 40px 0px 0px 30px;
+  cursor: pointer;
+}
+
+.headerLogin {
+  display: none;
+}
+
+@media screen and (min-width: 900px) {
+  .headerLogin {
+    display: block;
+  }
+
+  .arrow {
+    margin: 40px 0px 0px 50px;
+  }
+
+  .login {
+    .logoMobile {
+      display: none;
+    }
+
+    form {
+      .champ {
+        input {
+          min-width: 250px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 900px) {
+}

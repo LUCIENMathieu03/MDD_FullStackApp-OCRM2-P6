@@ -1,0 +1,58 @@
+.authentication {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  // padding-top: 175px;
+  // padding-bottom: 175px;
+
+  font-size: 16px;
+}
+
+.mddLogo {
+  width: 225px;
+  height: 130px;
+}
+
+.choice {
+  margin-top: 50px;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    min-width: 156px;
+    border: 1px solid black;
+    border-radius: 8px;
+  }
+
+  button:not(:nth-last-child(1)) {
+    margin-bottom: 35px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .authentication {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 175px;
+  }
+  .mddLogo {
+    width: 412px;
+    height: 238px;
+  }
+
+  .choice {
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    width: 377px;
+    justify-content: space-between;
+
+    button:not(:nth-last-child(1)) {
+      margin-bottom: 0px;
+    }
+  }
+}

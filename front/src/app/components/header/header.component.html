@@ -1,0 +1,153 @@
+<header class="headerContainer">
+  <div class="header">
+    <img
+      src="/assets/logo_p6.png"
+      alt="logo"
+      class="logo"
+      (click)="goToHomePage()"
+    />
+
+    <div class="rightBlock">
+      <button class="burgerBtn" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div *ngIf="this.authService.isLoggedIn()">
+        <ul class="desktopMenu">
+          <li class="deconnectLink" (click)="logout()">se déconnecter</li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/home">Articles</a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/theme">Thèmes</a>
+          </li>
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <a routerLink="/user">
+              <img
+                src="/assets/user.png"
+                alt="userIcon"
+                class="userIcon inactive"
+              />
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="userIcon active"
+              >
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="22.5"
+                  fill="#D9D9D9"
+                  stroke="#6C5CCF"
+                  stroke-width="3"
+                />
+                <path
+                  d="M12.0001 36V32.8817C12.0001 31.2276 12.6572 29.6413 13.8268 28.4717C14.9964 27.3021 16.5827 26.645 18.2368 26.645H30.7101C32.3642 26.645 33.9505 27.3021 35.1201 28.4717C36.2897 29.6413 36.9468 31.2276 36.9468 32.8817V36"
+                  stroke="#7763C5"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M24.4734 20.4733C21.029 20.4733 18.2368 17.6811 18.2368 14.2367C18.2368 10.7923 21.029 8 24.4734 8C27.9178 8 30.7101 10.7923 30.7101 14.2367C30.7101 17.6811 27.9178 20.4733 24.4734 20.4733Z"
+                  stroke="#7763C5"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mobileMenuBackground"
+      *ngIf="isMobileMenuOpen"
+      (click)="closeMobileMenuAndNavigate()"
+    ></div>
+
+    <div
+      class="mobileMenuSlider"
+      [ngClass]="{ 'mobile-menu-open': isMobileMenuOpen }"
+    >
+      <ul class="mobileMenu">
+        <li
+          class="deconnectLink"
+          (click)="closeMobileMenuAndNavigate(''); logout()"
+        >
+          se déconnecter
+        </li>
+        <li
+          (click)="closeMobileMenuAndNavigate('/home')"
+          [class.active]="isRouteActive('/home')"
+        >
+          Articles
+        </li>
+        <li
+          (click)="closeMobileMenuAndNavigate('/theme')"
+          [class.active]="isRouteActive('/theme')"
+        >
+          Thèmes
+        </li>
+      </ul>
+      <div
+        (click)="closeMobileMenuAndNavigate('/user')"
+        [class.active]="isRouteActive('/user')"
+      >
+        <img
+          src="/assets/user.png"
+          alt="userIcon"
+          class="userIcon"
+          class="userIcon inactive"
+        />
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="userIcon active"
+        >
+          <circle
+            cx="24"
+            cy="24"
+            r="22.5"
+            fill="#D9D9D9"
+            stroke="#6C5CCF"
+            stroke-width="3"
+          />
+          <path
+            d="M12.0001 36V32.8817C12.0001 31.2276 12.6572 29.6413 13.8268 28.4717C14.9964 27.3021 16.5827 26.645 18.2368 26.645H30.7101C32.3642 26.645 33.9505 27.3021 35.1201 28.4717C36.2897 29.6413 36.9468 31.2276 36.9468 32.8817V36"
+            stroke="#7763C5"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24.4734 20.4733C21.029 20.4733 18.2368 17.6811 18.2368 14.2367C18.2368 10.7923 21.029 8 24.4734 8C27.9178 8 30.7101 10.7923 30.7101 14.2367C30.7101 17.6811 27.9178 20.4733 24.4734 20.4733Z"
+            stroke="#7763C5"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
